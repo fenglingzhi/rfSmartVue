@@ -1,6 +1,5 @@
 <template>
-  <div id="app" ref="background_height">
-    <!--<img src="./assets/logo.png">-->
+  <div id="app">
     <router-view/>
   </div>
 </template>
@@ -8,11 +7,7 @@
 <script>
   export default {
     name: 'app',
-    mounted() {
-      let vm = this;
-      let bg_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-      vm.$refs.background_height.style.height = bg_height +'px';
-    }
+    
   }
 </script>
 
@@ -22,11 +17,17 @@
     padding: 0;
   }
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif, 'Microsoft YaHei';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    background: url('assets/App_bg.png');
+    /* 禁止文字选中 */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
   }
 </style>

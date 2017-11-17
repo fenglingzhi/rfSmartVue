@@ -1,61 +1,88 @@
 <template>
-  <div class="navHeader">
-    <el-row type="flex" class="row-bg" justify="space-around">
-      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-      <!--<el-col :span="6"><div class="grid-content bg-purple-light"></div></el-col>-->
-      <el-col :span="6" :offset="6"><div class="grid-content bg-purple"></div></el-col>
-    </el-row>
+  <div class="nav_header">
+    <div class="bg"></div>
+    <div class="content">
+      <el-row type="flex" class="row-bg" justify="space-around">
+        <el-col :span="10" class="left">
+          <div class="logo">
+            <img src="../../assets/logo.png" alt="">
+          </div>
+          <div class="title">{{navHeaderTitle}}</div>
+        </el-col>
+        <el-col :span="4" :offset="10" class="right">
+          <div class="img_wrap">
+            <img src="../../assets/search.png" alt="">
+            <img src="../../assets/lindang.png" alt="">
+            <img src="../../assets/fly2.png" alt="">
+            <img src="../../assets/head.png" alt="">
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+
   </div>
 </template>
 
 <script>
   export default {
-    name: 'navHeader',
+    name: 'nav_header',
     data () {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
       return {
-        tableData: Array(20).fill(item),
-        msg: '这是头部导航'
+        navHeaderTitle: '公安监管支队智慧管理平台'
       }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped type="text/scss">
-  .navHeader{
+<style scoped lang="scss">
+  .nav_header{
     height: 100px;
-    background: url('../../assets/top_bg.png');
-    opacity: .2;
-  }
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
+    width: 100%;
+    .bg{
+      height: 100px;
+      background: url('../../assets/top_bg.png');
+      opacity: .2;
     }
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+    .content{
+      position: fixed;
+      top:0;
+      left:0;
+      width: 100%;
+      margin-top: 14px;
+      .left{
+        height:72px;
+        line-height: 72px;
+        cursor: pointer;
+        padding-left: 20px;
+        .logo{
+          width: 72px;
+          height:72px;
+          float: left;
+        }
+        .title{
+          color: #fff;
+          font-size: 32px;
+          float: left;
+          margin-left: 10px;
+        }
+      }
+      .right{
+        margin-top: 18px;
+        .img_wrap{
+          float: right;
+          margin-right: 20px;
+          height: 40px;
+          width: 200px;
+          img{
+            height: 40px;
+            width: 40px;
+            float: left;
+            cursor: pointer;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
   }
 </style>
