@@ -27,14 +27,12 @@
 </template>
 
 <script>
-  import navHeader from './navHeader/navHeader.vue'
   import axios from 'axios'
   export default {
     name: 'login',
     data () {
       return {
         /*==================== Coding By YanM ====================*/
-        msg: '登录页',
         title:'公安监管支队智慧管理平台',
         ruleForm: {
           username: '',
@@ -47,6 +45,7 @@
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
           ],
+          login_flag:'true'
         }
         /*==================== Coding By YanM ====================*/
       }
@@ -64,21 +63,20 @@
                 username: vm.ruleForm.username,
                 password: vm.ruleForm.password
               }
-            }).then(function (data) {
-              console.log(data)
-              if(data.data.resultCode === 0){
-                vm.errTips(data.data.resultMsg)
-              } else if(data.data.resultCode === 1){
-//                vm.$router.push({ path: '/' })
+            }).then(function (resp) {
+                console.log(resp)
+              if(resp.data.resultCode === 0){
+                vm.errTips(resp.data.resultMsg)
+              } else if(resp.data.resultCode === 1){
+                vm.$authorzationUtils.setAuthorization(resp.data.data)
+                vm.$store.commit('login_flag')
+                vm.$router.push({ path: '/' })
               }
             })
           } else {
             return false;
           }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
       },
       /* 登录校验 */
       errTips(errData) {
@@ -152,9 +150,6 @@
       }
       .bottom{
         padding: 40px;
-        input{
-
-        }
         .login_submit{
           width: 100%;
           border-radius: 0;

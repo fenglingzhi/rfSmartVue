@@ -8,13 +8,14 @@
             <img src="../../assets/logo.png" alt="">
           </div>
           <div class="title">{{navHeaderTitle}}</div>
+          <!--<h4 style="color: #fff;">{{$store.state.navHeader.navHeader}}</h4>-->
         </el-col>
         <el-col :span="4" :offset="10" class="right">
           <div class="img_wrap">
-            <img src="../../assets/search.png" alt="">
-            <img src="../../assets/lindang.png" alt="">
-            <img src="../../assets/fly2.png" alt="">
-            <img src="../../assets/head.png" alt="">
+            <img @click="navHeaderClickMutations()" src="../../assets/search.png" alt="">
+            <img @click="navHeaderClickActions()" src="../../assets/lindang.png" alt="">
+            <img @click="" src="../../assets/fly2.png" alt="">
+            <img @click="" src="../../assets/head.png" alt="">
           </div>
         </el-col>
       </el-row>
@@ -30,6 +31,14 @@
       return {
         navHeaderTitle: '公安监管支队智慧管理平台'
       }
+    },
+    methods:{
+      navHeaderClickMutations(){
+        this.$store.commit('navHeaderMutationsTest')
+      },
+      navHeaderClickActions(){
+        this.$store.dispatch('testAsyncNavHeader')
+      },
     }
   }
 </script>
@@ -39,6 +48,7 @@
   .nav_header{
     height: 100px;
     width: 100%;
+    position: fixed;
     .bg{
       height: 100px;
       background: url('../../assets/top_bg.png');
