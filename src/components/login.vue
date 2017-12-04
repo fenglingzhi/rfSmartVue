@@ -53,7 +53,7 @@
     methods: {
       /*==================== Coding By YanM ====================*/
       submitForm(formName) {
-        var vm = this
+        var vm = this;
         vm.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
@@ -63,14 +63,16 @@
                 username: vm.ruleForm.username,
                 password: vm.ruleForm.password
               }
-            }).then(function (resp) {
+            }).
+            then(function (resp) {
                 console.log(resp)
               if(resp.data.resultCode === 0){
                 vm.errTips(resp.data.resultMsg)
               } else if(resp.data.resultCode === 1){
                 vm.$authorzationUtils.setAuthorization(resp.data.data)
-                vm.$store.commit('login_flag')
-                vm.$router.push({ path: '/' })
+                vm.$store.state.login_flag = true;
+                vm.$router.push({ path: '/supervisor_list' })
+//                vm.$router.push({ path: '/' })
               }
             })
           } else {

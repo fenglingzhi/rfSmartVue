@@ -1,14 +1,5 @@
 <template>
   <div id="app" ref="background_height">
-
-    <!-- 头部导航 -->
-    <nav-header></nav-header>
-    <!-- 头部导航 -->
-
-    <!-- 左侧菜单 -->
-    <menus></menus>
-    <!-- 左侧菜单 -->
-
     <!-- 内容主视区 -->
     <div ref="router_view_wrap" class="router_view_wrap">
       <router-view></router-view>
@@ -41,30 +32,15 @@
       'nav-header': navHeader,
       'menus':menus,
     },
+    methods:{
+
+    },
     mounted(){
       let vm = this;
       /* 获取页面宽高处理页面伸缩自适应 */
       let bg_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-      let bg_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-      /* 设置页面背景 */
       vm.$refs.background_height.style.height = bg_height +'px';
 
-      vm.$refs.router_view_wrap.style.height = bg_height - 100 + 'px';
-      vm.$refs.router_view_wrap.style.width = bg_width - 200 + 'px';
-
-//      if(vm.$store.state.login_flag === true){
-//        vm.$refs.router_view_wrap.style.height = bg_height - 100 + 'px';
-//        vm.$refs.router_view_wrap.style.width = bg_width - 200 + 'px';
-//        vm.$refs.router_view_wrap.style.top = 100 + 'px';
-//        vm.$refs.router_view_wrap.style.left = 200 + 'px';
-//      } else {
-//        vm.$store.commit('login_flag')
-//        vm.$refs.router_view_wrap.style.height = bg_height + 'px';
-//        vm.$refs.router_view_wrap.style.width = bg_width + 'px';
-//        vm.$refs.router_view_wrap.style.top = 0;
-//        vm.$refs.router_view_wrap.style.left = 0;
-//      }
     },
     computed:{
 
@@ -94,11 +70,12 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently not supported by any browser */
     .router_view_wrap{
-      width: 100%;
-      position: absolute;
-      left: 200px;
-      top: 100px;
-      overflow: auto;
+      width: auto;
+      /*position: absolute;*/
+      height: 100%;
+      /*top: 100px;*/
+      /*left: 200px;*/
+
     }
   }
 </style>

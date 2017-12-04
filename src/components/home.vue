@@ -1,13 +1,27 @@
 <template>
   <div class="home">
+    <!-- 头部导航 -->
+    <nav-header></nav-header>
+    <!-- 头部导航 -->
 
+    <!-- 左侧菜单 -->
+    <menus></menus>
+    <!-- 左侧菜单 -->
+
+    <h1>这是首页</h1>
   </div>
 
 </template>
 
 <script>
+  import navHeader from './navHeader/navHeader.vue'
+  import menus from './menus/menus.vue'
   export default {
     name: 'home',
+    components: {
+      'nav-header': navHeader,
+      'menus':menus,
+    },
     data () {
       return {
         msg: '这是首页',

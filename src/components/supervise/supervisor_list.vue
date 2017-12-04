@@ -1,157 +1,171 @@
 <template>
-  <div class="supervisor_list">
-    <el-row>
-      <el-col :span="24">
-        <div class="grid-content crumb">
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>督导单列表</el-breadcrumb-item>
-          </el-breadcrumb>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row style="padding: 20px">
-      <el-form>
-        <el-col :span="3">
-          <el-form-item label="监所">
-            <el-select v-model="prison_val" placeholder="请选择" size="small" style="width: 160px;">
-              <el-option
-                v-for="item in prison"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="3">
-          <el-form-item label="状态">
-            <el-select v-model="sup_status_val" placeholder="请选择" size="small" style="width: 160px;">
-              <el-option
-                v-for="item in sup_status"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="4">
-          <el-form-item label="违规类型">
-            <el-select v-model="illegal_val" multiple placeholder="请选择" size="small" style="width: 160px;">
-              <el-option
-                v-for="item in illegal"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="4">
-          <el-form-item label="督导单类型">
-            <el-select v-model="supervisor_list_val" placeholder="请选择" size="small" style="width: 160px;">
-              <el-option
-                v-for="item in supervisor_list"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="7">
-          <el-form-item label="选择时间">
-            <el-date-picker
-              v-model="select_time"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              size="small">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="3">
-          <el-form-item>
-            <el-button type="primary" size="small" @click="search()">查询</el-button>
-            <el-button type="primary" size="small" @click="create()">新建</el-button>
-          </el-form-item>
-        </el-col>
-      </el-form>
-    </el-row>
-    <el-row style="padding: 0 20px;">
-      <el-table
-        :data="supervisitor_list"
-        border
-        align="center"
-        style="width: 100%">
-        <el-table-column
-          prop="num"
-          label="编号"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="prison_name"
-          label="所在监狱"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="status_name"
-          label="督导状态"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="violateTypeName"
-          label="违规类型"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="create_time"
-          label="创建时间"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="create_police_name"
-          label="创建人"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="info_level_name"
-          label="等级">
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">审批</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+  <div>
+    <!-- 头部导航 -->
+    <nav-header></nav-header>
+    <!-- 头部导航 -->
 
-      <el-pagination
-        style="float: right;padding: 20px;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 50, 100]"
-        :page-size="5"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totals">
-      </el-pagination>
-    </el-row>
+    <!-- 左侧菜单 -->
+    <menus></menus>
+    <!-- 左侧菜单 -->
+    <div class="supervisor_list" ref="supervisor_list">
+      <el-row>
+        <el-col :span="24">
+          <div class="grid-content crumb">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>督导单列表</el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row style="padding: 20px">
+        <el-form>
+          <el-col :span="3">
+            <el-form-item label="监所">
+              <el-select v-model="prison_val" placeholder="请选择" size="small" style="width: 160px;">
+                <el-option
+                  v-for="item in prison"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item label="状态">
+              <el-select v-model="sup_status_val" placeholder="请选择" size="small" style="width: 160px;">
+                <el-option
+                  v-for="item in sup_status"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="违规类型">
+              <el-select v-model="illegal_val" multiple placeholder="请选择" size="small" style="width: 160px;">
+                <el-option
+                  v-for="item in illegal"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="督导单类型">
+              <el-select v-model="supervisor_list_val" placeholder="请选择" size="small" style="width: 160px;">
+                <el-option
+                  v-for="item in supervisor_list"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="选择时间">
+              <el-date-picker
+                v-model="select_time"
+                type="datetimerange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                size="small">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item>
+              <el-button type="primary" size="small" @click="search()">查询</el-button>
+              <el-button type="primary" size="small" @click="create()">新建</el-button>
+            </el-form-item>
+          </el-col>
+        </el-form>
+      </el-row>
+      <el-row style="padding: 0 20px;">
+        <el-table
+          :data="supervisitor_list"
+          border
+          align="center"
+          style="width: 100%">
+          <el-table-column
+            prop="num"
+            label="编号"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="prison_name"
+            label="所在监狱"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="status_name"
+            label="督导状态"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="violateTypeName"
+            label="违规类型"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="create_time"
+            label="创建时间"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="create_police_name"
+            label="创建人"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="info_level_name"
+            label="等级">
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)">审批</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <el-pagination
+          style="float: right;padding: 20px;"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 50, 100]"
+          :page-size="5"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totals">
+        </el-pagination>
+      </el-row>
+    </div>
   </div>
-
 </template>
 
 <script>
   import axios from 'axios'
+  import navHeader from '../navHeader/navHeader.vue'
+  import menus from '../menus/menus.vue'
   export default {
     name: 'supervisor_list',
+    components: {
+      'nav-header': navHeader,
+      'menus':menus,
+    },
     data () {
       return {
         token:'',
@@ -323,6 +337,10 @@
       vm.token = vm.$authorzationUtils.getAuthorization().token
       vm.getPersion()
       vm.getIllegalType()
+      let bg_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      let bg_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      vm.$refs.supervisor_list.style.height = bg_height - 100 + 'px';
+      vm.$refs.supervisor_list.style.width = bg_width - 200 + 'px';
     }
   }
 </script>
@@ -332,6 +350,9 @@
   .supervisor_list{
     background: #eee;
     height: 100%;
+    position: absolute;
+    left: 200px;
+    top: 100px;
     .crumb{
       line-height: 20px;
       padding: 20px;
